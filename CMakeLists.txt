@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.15)
-project(trackput)
+project(trackput VERSION 1.0.0)
 
+# Cpp stuff
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Deps
 include(FetchContent)
@@ -21,12 +24,24 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(json)
 FetchContent_MakeAvailable(asio)
 
-# Output
-add_executable(
-    main
-    src/main.cpp
-)
+# Building
+option(BUILD_SERVER "Enable building the server" ON)
+option(BUILD_CLIENT "Enable building the client" ON)
+option(BUILD_TEST "Enable building the tests" OFF)
 
-target_include_directories(main PRIVATE ${asio_SOURCE_DIR}/asio/include)
+if (BUILD_SERVER)
+    add_subdirectory(server)
+endif()
 
-target_link_libraries(main PRIVATE nlohmann_json::nlohmann_json)
+if (BUILD_CLIENT)
+    add_subdirectory(client)
+endif()
+
+if (BUILD_TEST)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
+
+if (BUILD_SERVER OR BUILD_CLIENT OR BUILD_TEST)
+    add_subdirectory(common)
+endif()
