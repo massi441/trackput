@@ -42,3 +42,20 @@
 
 # build
 build/
+
+# Ide
+.vscode/
+*.code-workspace
+.idea/
+*.iml
+.project
+.cproject
+.settings/
+*.launch
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata/
+*.xcodeproj/
+
+# Misc
+planning.md
