@@ -2,6 +2,7 @@
 
 #include "asio.hpp"
 #include "nlohmann/json.hpp"
+#include "monitor/test-monitor.h"
 
 int main() {
     asio::io_context io;
@@ -14,6 +15,10 @@ int main() {
     });
 
     io.run();
+
+    tckp::Monitor monitor;
+
+    monitor.print();
 
     return 0;
 }
