@@ -1,6 +1,6 @@
 #pragma once
 
-#include "mouse/mouse-monitor.hpp"
+#include "mouse/mouse_monitor.hpp"
 
 namespace tckp {
     class WindowsMouseMonitor : public IMouseMonitor {

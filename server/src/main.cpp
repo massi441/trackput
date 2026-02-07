@@ -2,7 +2,7 @@
 
 #include "asio.hpp"
 #include "nlohmann/json.hpp"
-#include "monitor/test-monitor.h"
+#include "monitor/test_monitor.h"
 
 int main() {
     asio::io_context io;
