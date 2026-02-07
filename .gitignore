@@ -56,6 +56,7 @@ build/
 *.xcuserstate
 *.xcuserdata/
 *.xcodeproj/
+.vs/
 
 # Misc
 planning.md
