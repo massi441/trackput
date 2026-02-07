@@ -1,8 +1,8 @@
 #pragma once
 
 namespace tckp {
-    class Monitor {
+    class KeyListener {
     public:
-        void print();
+        
     };
 }

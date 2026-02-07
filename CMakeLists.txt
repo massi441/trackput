@@ -43,6 +43,5 @@ if (BUILD_TEST)
 endif()
 
 if (BUILD_SERVER OR BUILD_CLIENT OR BUILD_TEST)
-    add_subdirectory(common)
     add_subdirectory(monitor)
 endif()
