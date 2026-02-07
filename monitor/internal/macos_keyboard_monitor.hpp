@@ -10,7 +10,7 @@ namespace tckp::macos {
         Result run() override;
         Result stop() override;
 
-        InputCode getCurrentKey() override;
+        Key getCurrentKey() override;
         
     private:
         CFMachPortRef mTap = nullptr;

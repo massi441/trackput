@@ -1,7 +1,7 @@
 #pragma once
 
 namespace tckp {
-    enum class InputCode {
+    enum class Key {
         None = 0,
 
         // Letters
