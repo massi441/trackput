@@ -44,7 +44,7 @@ UInt32 mapKeyModifiers(CGEventRef eventRef) {
         cfMask |= (alphaLock >> modifierShift);
     }
 
-    return cfMask;
+    return 0;
 }
 
 CGEventRef keyboard_callback(CGEventTapProxy proxy, CGEventType eventType, CGEventRef eventRef, void* userData) {
@@ -107,13 +107,21 @@ CGEventRef keyboard_callback(CGEventTapProxy proxy, CGEventType eventType, CGEve
         return eventRef;
     }
 
-    // const char* error = GetMacosS
-
-    // std::cout << "Actual Length: " << actualLength << std::endl;
-    // std::cout << "Key Code: " << keyCode << std::endl;
-
-    // const unsigned char* str = 
     const char* keyStr = (const char*)(uniString); // FIX LATER;
+
+    std::cout << "Key String: " << keyStr << std::endl;
+
+    return eventRef;
+}
+
+CGEventRef keyDownCallback(CGEventTapProxy proxy, CGEventType eventType, CGEventRef eventRef, void* userData) {
+    const UniCharCount maxLength = 8;
+    UniCharCount actualLength;
+    UniChar buffer[maxLength];
+
+    CGEventKeyboardGetUnicodeString(eventRef, maxLength, &actualLength, buffer);
+
+    const char* keyStr = (const char *)(buffer); // FIX LATER;
 
     std::cout << "Key String: " << keyStr << std::endl;
 
@@ -131,7 +139,7 @@ int main() {
     );
 
     if (!tap) {
-        std::cerr << "Error" << std::endl;
+        std::cerr << "Could not start monitoring for Mac. Check if permissions are enabled" << std::endl;
         return 1;
     }
 
