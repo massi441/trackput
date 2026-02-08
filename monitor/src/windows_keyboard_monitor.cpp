@@ -46,16 +46,53 @@ namespace tckp::win {
         return Key::A;
     }
 
-    LRESULT KeyboardMonitor::LowLevelKeyboardProc(int code, WPARAM message, LPARAM keyboard) {
+    LRESULT KeyboardMonitor::LowLevelKeyboardProc(int code, WPARAM messageId, LPARAM keyboardPtr) {
         if (code >= 0) {
-            if (message == WM_KEYDOWN) {
-                std::cout << "Key Pressed!" << std::endl;
+            if (messageId == WM_KEYDOWN) {
+                KBDLLHOOKSTRUCT* keyboard = (KBDLLHOOKSTRUCT*)keyboardPtr;
+                std::string str = mapVkcToStr(keyboard->vkCode, keyboard->scanCode);
+                std::cout << "Key Pressed: " << str << std::endl;
             }
-
         } else {
             std::cerr << "Something went wrong while processing the event" << std::endl;
         }
 
-        return CallNextHookEx(KeyboardMonitor::Instance().mHook, code, message, keyboard);
+        return CallNextHookEx(KeyboardMonitor::Instance().mHook, code, messageId, keyboardPtr);
+    }
+
+    std::string KeyboardMonitor::mapVkcToStr(DWORD keyCode, DWORD scanCode) {
+        BYTE keyboardState[256];
+        if (!GetKeyboardState(keyboardState)) {
+            return std::string();
+        }
+
+        constexpr int bufferSize = 4;
+        WCHAR buffer[bufferSize];
+
+        HKL layout = GetKeyboardLayout(0);
+
+        int charCount = ToUnicodeEx(
+            keyCode,
+            scanCode,
+            keyboardState,
+            buffer,
+            bufferSize,
+            0,
+            layout
+        );
+
+        // dead key
+        if (charCount < 0) {
+            return std::string();
+        }
+
+        // no available translation
+        if (charCount == 0) {
+            return std::string();
+        }
+
+        // TODO: Fix later
+        std::wstring wstr(buffer, charCount);
+        return std::string(wstr.begin(), wstr.end());
     }
 }

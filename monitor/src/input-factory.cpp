@@ -8,11 +8,11 @@
 
 namespace tckp {
     IKeyboardMonitor& InputFactory::keyboardMonitor() {
-        #ifdef _WIN32
+        #if defined(_WIN32)
             return tckp::win::KeyboardMonitor::Instance();
-        #elifdef __APPLE__
-            return new tckp::macos::KeyboardMonitor();
-        #elifdef __linux__
+        #elif defined(__APPLE__)
+            return tckp::macos::KeyboardMonitor();
+        #elif defined(__linux__)
             // linux
         #endif
 
@@ -20,6 +20,6 @@ namespace tckp {
     }
 
     IMouseMonitor& InputFactory::mouseMonitor() {
-
+        throw std::runtime_error("Not implemented yet");
     }
 }
