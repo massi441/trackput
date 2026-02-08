@@ -1,6 +1,9 @@
 #pragma once
 
+#ifdef __APPLE__
+
 #include <ApplicationServices/ApplicationServices.h>
+
 #include "monitor/keyboard_monitor.hpp"
 
 namespace tckp::macos {
@@ -23,3 +26,5 @@ namespace tckp::macos {
         static CGEventRef callback(CGEventTapProxy proxy, CGEventType eventType, CGEventRef eventRef, void *userData);
     };
 }
+
+#endif

@@ -8,10 +8,8 @@ namespace tckp {
     public:
         virtual Result run() = 0;
         virtual Result stop() = 0;
-
         virtual Key getCurrentKey() = 0;
 
-    private:
-        
+        virtual ~IKeyboardMonitor() = default;
     };
 }

@@ -4,20 +4,22 @@
 #include "macos_keyboard_monitor.hpp"
 #include "windows_keyboard_monitor.hpp"
 
+#include <stdexcept>
+
 namespace tckp {
-    IKeyboardMonitor* InputFactory::keyboardMonitor() {
-        #if defined (_WIN32)
-            // return new tckp:
-        #elif defined(__APPLE__)
+    IKeyboardMonitor& InputFactory::keyboardMonitor() {
+        #ifdef _WIN32
+            return tckp::win::KeyboardMonitor::Instance();
+        #elifdef __APPLE__
             return new tckp::macos::KeyboardMonitor();
-        #elif defined(__linux__)
+        #elifdef __linux__
             // linux
         #endif
 
-        return nullptr;
+        throw std::runtime_error("Unsupported platform");
     }
 
-    IMouseMonitor* InputFactory::mouseMonitor() {
+    IMouseMonitor& InputFactory::mouseMonitor() {
 
     }
 }

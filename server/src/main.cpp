@@ -3,13 +3,13 @@
 #include "monitor/input-factory.hpp"
 
 int main() {
-    tckp::IKeyboardMonitor* monitor = tckp::InputFactory::keyboardMonitor();
-
-    monitor->run();
-
-    std::cout << "Stopped Monitoring" << std::endl;
-
-    delete monitor;
-
+    try {
+        tckp::IKeyboardMonitor& monitor = tckp::InputFactory::keyboardMonitor();
+        std::cout << "Starting Monitor" << std::endl;
+        monitor.run();
+    } catch (const std::runtime_error& error) {
+        std::cout << error.what() << std::endl;
+        return 1;
+    }
     return 0;
 }

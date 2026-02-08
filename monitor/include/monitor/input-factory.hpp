@@ -6,7 +6,7 @@
 namespace tckp {
     class InputFactory {
     public:
-        static IKeyboardMonitor* keyboardMonitor();
-        static IMouseMonitor* mouseMonitor();
+        static IKeyboardMonitor& keyboardMonitor();
+        static IMouseMonitor& mouseMonitor();
     };
 }
