@@ -1,19 +1,15 @@
 #include <iostream>
 
-#include "asio.hpp"
-#include "nlohmann/json.hpp"
+#include "monitor/input-factory.hpp"
 
 int main() {
-    asio::io_context io;
-    nlohmann::json j;
-
-    j["Message"] = "Hello from the trackput server!";
-
-    asio::post(io, [j] {
-        std::cout << j["Message"] << std::endl; 
-    });
-
-    io.run();
-
+    try {
+        tckp::IKeyboardMonitor& monitor = tckp::InputFactory::keyboardMonitor();
+        std::cout << "Starting Monitor" << std::endl;
+        monitor.run();
+    } catch (const std::runtime_error& error) {
+        std::cout << error.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
