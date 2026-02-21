@@ -7,22 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Deps
-include(FetchContent)
-
-FetchContent_Declare(
-    json
-    GIT_REPOSITORY https://github.com/nlohmann/json.git
-    GIT_TAG v3.12.0
-)
-
-FetchContent_Declare(
-    asio
-    GIT_REPOSITORY https://github.com/chriskohlhoff/asio.git
-    GIT_TAG asio-1-36-0
-)
-
-FetchContent_MakeAvailable(json)
-FetchContent_MakeAvailable(asio)
+find_package(nlohmann_json CONFIG REQUIRED)
+find_package(asio CONFIG REQUIRED)
 
 # Building
 option(BUILD_SERVER "Enable building the server" ON)

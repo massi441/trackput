@@ -1,12 +1,16 @@
 # Deps
-FetchContent_Declare(
-    unit_test
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG v1.17.0
-)
+find_package()
 
-FetchContent_MakeAvailable(unit_test)
+# FetchContent_Declare(
+#     unit_test
+#     GIT_REPOSITORY https://github.com/google/googletest.git
+#     GIT_TAG v1.17.0
+# )
 
+# FetchContent_MakeAvailable(unit_test)
+find_package(gtest)
+
+# set(<variable> <value> CACHE <type> <docstring> [FORCE])
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 # Build

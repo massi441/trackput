@@ -3,11 +3,12 @@
 #ifdef __APPLE__
 
 #include <ApplicationServices/ApplicationServices.h>
-
 #include "monitor/keyboard_monitor.hpp"
+#include "singleton.hpp"
 
 namespace tckp::macos {
     class KeyboardMonitor : public IKeyboardMonitor {
+        SINGLETON(KeyboardMonitor)
     public:
         // Have custom event
         Result run() override;
