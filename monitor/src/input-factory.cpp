@@ -11,7 +11,7 @@ namespace tckp {
         #if defined(_WIN32)
             return tckp::win::KeyboardMonitor::Instance();
         #elif defined(__APPLE__)
-            return tckp::macos::KeyboardMonitor();
+            return tckp::macos::KeyboardMonitor::Instance();
         #elif defined(__linux__)
             // linux
         #endif
